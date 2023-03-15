@@ -1,30 +1,23 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:untitled/productlistpage.dart';
-import 'package:untitled/search.dart';
-import 'package:untitled/signup.dart';
-import 'package:untitled/splashscreen.dart';
-import 'package:untitled/varificationpage.dart';
-import 'package:get_storage/get_storage.dart';
-import 'homepage.dart';
-import 'loginPage.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get/get_navigation/src/routes/get_route.dart';
+import 'package:get/get_navigation/src/routes/transitions_type.dart';
 
-import 'httptesting.dart';
+import 'bottomnavigatorpage.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await GetStorage.init();
-  runApp(const MyApp());
-}
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: AllProductListPage(),
-    );
-  }
+void main() {
+  runApp(GetMaterialApp(
+    debugShowCheckedModeBanner: false,
+    initialRoute: '/home',
+    defaultTransition: Transition.fade,
+    getPages: [
+      GetPage(
+        name: '/home',
+        page: () => BottomNavigationbarPage(),
+        binding: HomeBinding(),
+      ),
+    ],
+  ));
 }

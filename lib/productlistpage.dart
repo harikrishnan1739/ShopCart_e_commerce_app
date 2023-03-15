@@ -575,9 +575,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:untitled/Models/productdetails/product.dart';
+import 'package:untitled/productlistSubpages/productlistfiltersubpage.dart';
+import 'package:untitled/productlistSubpages/productlistratingsubpage.dart';
 import 'package:untitled/search.dart';
-import 'package:untitled/views/producttile.dart';
+import 'package:untitled/singleproductview.dart';
 
 import 'controllers/productcontroller.dart';
 
@@ -625,17 +626,65 @@ class AllProductListPage extends StatelessWidget {
               children: [
                 const Expanded(
                   child: Text(
-                    "ShopeCart",
+                    "ShoperCart",
                     style: TextStyle(
                         fontFamily: 'avenir',
                         fontSize: 26,
                         fontWeight: FontWeight.w900),
                   ),
                 ),
-                IconButton(
-                    icon: const Icon(Icons.view_list_rounded),
-                    onPressed: () {}),
-                IconButton(icon: const Icon(Icons.grid_view), onPressed: () {}),
+                Padding(
+                  padding: const EdgeInsets.only(right: 10.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      Get.to(
+                        FilterPage(),
+                        transition: Transition.fade,
+                        duration: const Duration(milliseconds: 350),
+                      );
+                    },
+                    child: Container(
+                      width: 70,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadiusDirectional.circular(9),
+                        color: Colors.black,
+                      ),
+                      child: const Center(
+                        child: Text(
+                          'Filter',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 10.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      Get.to(
+                        RatingFilterpage(),
+                        transition: Transition.fade,
+                        duration: const Duration(milliseconds: 350),
+                      );
+                    },
+                    child: Container(
+                      width: 70,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadiusDirectional.circular(9),
+                        color: Colors.black,
+                      ),
+                      child: const Center(
+                        child: Text(
+                          'Rating',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                )
               ],
             ),
           ),
@@ -692,39 +741,40 @@ class AllProductListPage extends StatelessWidget {
                         productController.productlist[index].description;
                     //--------------------------rating---------------------
                     var rating = productController.productlist[index].ratings;
-                    if (productController.productlist[index].discount != 0) {
+                    //--------------------------------------------------------
+                    if (productController.productlist[index].ratings != 0) {
                       return Padding(
                         padding: const EdgeInsets.only(top: 8.0),
-                        child: Container(
-                          width: 150,
-                          height: 285,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(9),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Colors.black,
-                                spreadRadius: 1,
-                                blurRadius: 8,
-                                offset: Offset(2, 2),
-                              ),
-                              BoxShadow(
-                                color: Colors.white,
-                                spreadRadius: 2,
-                                blurRadius: 8,
-                                offset: Offset(-2, -2),
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(top: 5.0),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    print(
-                                        '1111111111111111111111111111111111111${images}');
-                                  },
+                        child: GestureDetector(
+                          onTap: () {
+                            Get.to(SingleProductPage());
+                            print('55555555555555555555555555555555');
+                          },
+                          child: Container(
+                            width: 150,
+                            height: 285,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(9),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.black,
+                                  spreadRadius: 1,
+                                  blurRadius: 8,
+                                  offset: Offset(2, 2),
+                                ),
+                                BoxShadow(
+                                  color: Colors.white,
+                                  spreadRadius: 2,
+                                  blurRadius: 8,
+                                  offset: Offset(-2, -2),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 5.0),
                                   child: Container(
                                     width: 185,
                                     height: 155,
@@ -738,184 +788,187 @@ class AllProductListPage extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                              ),
-                              Container(
-                                width: 170,
-                                height: 20,
-                                // color: Colors.greenAccent,
-                                child: Text(
-                                  category.toString(),
-                                  style: TextStyle(
-                                      color: Colors.grey, fontSize: 10),
-                                ),
-                              ),
-                              Container(
-                                width: 170,
-                                height: 20,
-                                // color: Colors.greenAccent,
-                                child: Text(
-                                  productname.toString(),
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 17.0),
-                                child: Container(
-                                  width: 190,
+                                Container(
+                                  width: 170,
                                   height: 20,
-                                  //color: Colors.greenAccent,
+                                  // color: Colors.greenAccent,
                                   child: Text(
-                                    '$description',
+                                    category.toString(),
                                     style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 9,
+                                        color: Colors.grey, fontSize: 10),
+                                  ),
+                                ),
+                                Container(
+                                  width: 170,
+                                  height: 20,
+                                  // color: Colors.greenAccent,
+                                  child: Text(
+                                    productname.toString(),
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 17.0),
+                                  child: Container(
+                                    width: 190,
+                                    height: 20,
+                                    //color: Colors.greenAccent,
+                                    child: Text(
+                                      '$description',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 9,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              //--------------------------------------------------------------------
-                              Padding(
-                                padding: const EdgeInsets.only(left: 10.0),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      width: 55,
-                                      height: 20,
-                                      //  color: Colors.red,
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 1.0, left: 10.0),
-                                        child: Text(
-                                          price.toString(),
-                                          style: const TextStyle(
-                                              color: Colors.grey,
-                                              fontSize: 11,
-                                              fontWeight: FontWeight.w500,
-                                              decoration:
-                                                  TextDecoration.lineThrough),
+                                //--------------------------------------------------------------------
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10.0),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        width: 55,
+                                        height: 20,
+                                        //  color: Colors.red,
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 1.0, left: 10.0),
+                                          child: Text(
+                                            price.toString(),
+                                            style: const TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.w500,
+                                                decoration:
+                                                    TextDecoration.lineThrough),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 5.0),
-                                      child: Container(
-                                        width: 50,
-                                        height: 20,
-                                        //   color: Colors.greenAccent,
-                                        child: Text(
-                                          '₹${sellinfinalprice}',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.bold),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 5.0),
+                                        child: Container(
+                                          width: 50,
+                                          height: 20,
+                                          //   color: Colors.greenAccent,
+                                          child: Text(
+                                            '₹${sellinfinalprice}',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.bold),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 5.0),
-                                      child: Container(
-                                        width: 50,
-                                        height: 20,
-                                        //   color: Colors.amber,
-                                        child: Text(
-                                          '${discount}% off',
-                                          style: TextStyle(
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 5.0),
+                                        child: Container(
+                                          width: 50,
+                                          height: 20,
+                                          //   color: Colors.amber,
+                                          child: Text(
+                                            '${discount}% off',
+                                            style: TextStyle(
+                                                color: Colors.green,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                //--------------------------------------------------------
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 110.0),
+                                  child: Row(
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 17.0),
+                                        child: Container(
+                                          width: 45,
+                                          height: 25,
+                                          decoration: BoxDecoration(
                                               color: Colors.green,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.bold),
+                                              borderRadius:
+                                                  BorderRadius.circular(13)),
+                                          child: Row(
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 2.0, left: 10),
+                                                child: Text(
+                                                  rating.toString(),
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 4.0),
+                                                child: Icon(
+                                                  Icons.star,
+                                                  color: Colors.white,
+                                                  size: 13,
+                                                ),
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(right: 110.0),
-                                child: Row(
-                                  children: [
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.only(left: 17.0),
-                                      child: Container(
-                                        width: 45,
-                                        height: 25,
-                                        decoration: BoxDecoration(
-                                            color: Colors.green,
-                                            borderRadius:
-                                                BorderRadius.circular(13)),
-                                        child: Row(
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 2.0, left: 10),
-                                              child: Text(
-                                                rating.toString(),
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 14,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 4.0),
-                                              child: Icon(
-                                                Icons.star,
-                                                color: Colors.white,
-                                                size: 13,
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
+                                //-----------------------------------------------------------------
+                              ],
+                            ),
                           ),
                         ),
                       );
                     } else {
                       return Padding(
                         padding: const EdgeInsets.only(top: 8.0),
-                        child: Container(
-                          width: 150,
-                          height: 285,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(9),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Colors.black,
-                                spreadRadius: 1,
-                                blurRadius: 8,
-                                offset: Offset(2, 2),
-                              ),
-                              BoxShadow(
-                                color: Colors.white,
-                                spreadRadius: 2,
-                                blurRadius: 8,
-                                offset: Offset(-2, -2),
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(top: 5.0),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    print(
-                                        '1111111111111111111111111111111111111${images}');
-                                  },
+                        child: GestureDetector(
+                          onTap: () {
+                            print('ddddddddddddddddddddddddddddddddddd');
+                          },
+                          child: Container(
+                            width: 150,
+                            height: 285,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(9),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.black,
+                                  spreadRadius: 1,
+                                  blurRadius: 8,
+                                  offset: Offset(2, 2),
+                                ),
+                                BoxShadow(
+                                  color: Colors.white,
+                                  spreadRadius: 2,
+                                  blurRadius: 8,
+                                  offset: Offset(-2, -2),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 5.0),
                                   child: Container(
                                     width: 185,
                                     height: 155,
@@ -929,57 +982,115 @@ class AllProductListPage extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                              ),
-                              SizedBox(
-                                width: 170,
-                                height: 20,
-                                // color: Colors.greenAccent,
-                                child: Text(
-                                  category.toString(),
-                                  style: const TextStyle(
-                                      color: Colors.grey, fontSize: 10),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 170,
-                                height: 20,
-                                // color: Colors.greenAccent,
-                                child: Text(
-                                  productname.toString(),
-                                  style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 170,
-                                height: 20,
-                                // color: Colors.greenAccent,
-                                child: Text(
-                                  description,
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 9,
+                                SizedBox(
+                                  width: 170,
+                                  height: 20,
+                                  // color: Colors.greenAccent,
+                                  child: Text(
+                                    category.toString(),
+                                    style: const TextStyle(
+                                        color: Colors.grey, fontSize: 10),
                                   ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(right: 120.0),
-                                child: Container(
-                                  width: 50,
+                                SizedBox(
+                                  width: 170,
                                   height: 20,
-                                  //color: Colors.greenAccent,
+                                  // color: Colors.greenAccent,
                                   child: Text(
-                                    '₹$sellinfinalprice',
+                                    productname.toString(),
                                     style: const TextStyle(
                                         color: Colors.black,
                                         fontSize: 12,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
-                              ),
-                            ],
+                                SizedBox(
+                                  width: 170,
+                                  height: 20,
+                                  // color: Colors.greenAccent,
+                                  child: Text(
+                                    description,
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 9,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 120.0),
+                                  child: Container(
+                                    width: 50,
+                                    height: 20,
+                                    //color: Colors.greenAccent,
+                                    child: Text(
+                                      '₹$sellinfinalprice',
+                                      style: const TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ),
+                                //---------------------------------------------------------------------
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10.0),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        width: 55,
+                                        height: 20,
+                                        //  color: Colors.red,
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 1.0, left: 10.0),
+                                          child: Text(
+                                            price.toString(),
+                                            style: const TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.w500,
+                                                decoration:
+                                                    TextDecoration.lineThrough),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 5.0),
+                                        child: Container(
+                                          width: 50,
+                                          height: 20,
+                                          //   color: Colors.greenAccent,
+                                          child: Text(
+                                            '₹${sellinfinalprice}',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 5.0),
+                                        child: Container(
+                                          width: 50,
+                                          height: 20,
+                                          //   color: Colors.amber,
+                                          child: Text(
+                                            '${discount}% off',
+                                            style: TextStyle(
+                                                color: Colors.green,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       );

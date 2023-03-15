@@ -75,10 +75,14 @@ import '../Models/productdetails/product.dart';
 class PostsController extends GetxController {
   var isLoading = true.obs;
   var productlist = List<Product>.empty().obs;
+  //--------------------------------------
+  final filteredProducts = <Product>[].obs;
+  final priceFilter = 0.0.obs;
 
   @override
   void onInit() {
     fetchPosts();
+    // getProductCount();
     super.onInit();
   }
 
@@ -93,4 +97,19 @@ class PostsController extends GetxController {
       isLoading(false);
     }
   }
+  //========================================
+
+  // void getProductCount() async {
+  //   try {
+  //     isLoading(true);
+  //     var fetchedPosts = await TotalProductsCount.fetchProducts();
+  //     if (fetchedPosts != null) {
+  //       productlist.assignAll(fetchedPosts as Iterable<Product>);
+  //     }else{
+  //       print('something Went Wrong');
+  //     }
+  //   } finally {
+  //     isLoading(false);
+  //   }
+  // }
 }
